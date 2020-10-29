@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Dominio
@@ -13,7 +14,7 @@ Grado varchar(30),
 FotoPerfil varchar(max)
 );
         */
-        public int InstructorId {get; set;}
+        public Guid InstructorId {get; set;}
         public string Nombre {get; set;}
         public string Apellidos {get; set;}
         public string Grado {get; set;}
