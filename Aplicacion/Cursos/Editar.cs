@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Aplicacion.ManejadorError;
 using Dominio;
 using FluentValidation;
 using MediatR;
@@ -47,13 +48,13 @@ namespace Aplicacion.Cursos
                     curso.Descripcion = request.Descripcion ?? curso.Descripcion;
                     curso.FechaPublicacion = request.FechaPublicacion ?? curso.FechaPublicacion;
                 } else {
-                    throw new Exception("No se encontró el curso a actualizar");
+                    throw new ManejadorExcepcion(System.Net.HttpStatusCode.NotFound,new {curso = "No se encontró el curso a actualizar"});
                 }
                 var resultado = await _context.SaveChangesAsync(cancellationToken); //0 no se hizo una transacción, 1 se hizo 1 transaccion
                 if(resultado > 0) {
                     return Unit.Value;
                 }
-                throw new Exception("No se actualizó el Curso");
+                throw new ManejadorExcepcion(System.Net.HttpStatusCode.InternalServerError,new {curso = "No se actualizó el Curso"});
             }
         }
     }

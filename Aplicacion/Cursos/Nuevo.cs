@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Aplicacion.ManejadorError;
 using Dominio;
 using FluentValidation;
 using MediatR;
@@ -49,7 +50,7 @@ namespace Aplicacion.Cursos
                 if(resultado > 0) {
                     return Unit.Value;
                 }
-                throw new Exception("No se guardó el Curso");
+                throw new ManejadorExcepcion(System.Net.HttpStatusCode.InternalServerError,"No se guardó el Curso");
             }
         }
     }
